@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.clip.challenge.model.Disbursement;
-import com.clip.challenge.model.Transaction;
+import com.clip.challenge.dto.DisbursementDTO;
+import com.clip.challenge.dto.TransactionDTO;
 import com.clip.challenge.repository.DisbursementRepository;
 import com.clip.challenge.repository.TransactionRepository;
 
@@ -25,21 +25,21 @@ public class DisbursementService {
 
 	@Transactional
 	public void makeDisbursement() {
-		List<Disbursement> disbursements= new ArrayList<Disbursement>();
-		Map<Disbursement,List<Transaction>> disbursementAndTransaction = new HashMap<>();
-		List<Transaction> transactions = transactionRepository.findTransactionNoPaid();		
+		List<DisbursementDTO> disbursements= new ArrayList<DisbursementDTO>();
+		Map<DisbursementDTO,List<TransactionDTO>> disbursementAndTransaction = new HashMap<>();
+		List<TransactionDTO> transactions = transactionRepository.findTransactionNoPaid();		
 		
 		Map<String, Double> totalAumountByUser  = transactions.stream().collect(
-				Collectors.groupingBy(Transaction::getClipUser, 
-			    Collectors.summingDouble(Transaction::getAmount)));
+				Collectors.groupingBy(TransactionDTO::getClipUser, 
+			    Collectors.summingDouble(TransactionDTO::getAmount)));
 
 		totalAumountByUser.forEach((k, v) -> {
-			List<Transaction> filterByUser = transactions.stream().
+			List<TransactionDTO> filterByUser = transactions.stream().
 					filter(
 							t -> t.getClipUser().equals(k))
 					.collect(Collectors.toList());
 
-			Disbursement disbursement = new Disbursement(k, v);
+			DisbursementDTO disbursement = new DisbursementDTO(k, v);
 			disbursements.add(disbursement);
 			disbursementAndTransaction.put(disbursement, filterByUser);
 			disbursementRepository.save(disbursement);
@@ -47,10 +47,10 @@ public class DisbursementService {
 		});		
 	}
 	
-	public List<Integer> getListIds(List<Transaction> transactions) {
+	public List<Integer> getListIds(List<TransactionDTO> transactions) {
 		List<Integer> ids = 
 				transactions.stream()
-			              .map( Transaction::getId)
+			              .map( TransactionDTO::getId)
 			              .collect(Collectors.toList());
 		return ids;		
 	}

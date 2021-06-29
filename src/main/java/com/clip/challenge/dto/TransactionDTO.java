@@ -1,4 +1,4 @@
-package com.clip.challenge.model;
+package com.clip.challenge.dto;
 
 
 import java.sql.Timestamp;
@@ -16,11 +16,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table (name = "transaction")
-public class Transaction {
+public class TransactionDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
 	private int id;
 	
+
 	@Column(name="amount")
 	private Double amount;
 	

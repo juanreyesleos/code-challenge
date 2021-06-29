@@ -11,16 +11,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.clip.challenge.model.Transaction;
+import com.clip.challenge.dto.TransactionDTO;
 
 @Repository
-public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
+public interface TransactionRepository extends JpaRepository<TransactionDTO, Integer> {
 	
 	@Query( value ="SELECT * FROM TRANSACTION   WHERE PAID = FALSE AND CLIP_USER= :clipUser ORDER BY CLIP_USER,ID ", nativeQuery =true)
-	List<Transaction> findByClipUserOrderByClipUser(@Param("clipUser") String clipUser);
+	List<TransactionDTO> findByClipUserOrderByClipUser(@Param("clipUser") String clipUser);
 	
 	@Query( value ="SELECT * FROM TRANSACTION   WHERE PAID = FALSE ", nativeQuery =true)
-	List<Transaction> findTransactionNoPaid();
+	List<TransactionDTO> findTransactionNoPaid();
 	
 	@Query(value = "SELECT sum (amount) AS total ,clip_user FROM TRANSACTION group by clip_user", nativeQuery = true)
     List<Map<String, Object>> sumAmountByClipUser();

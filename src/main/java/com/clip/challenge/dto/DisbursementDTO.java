@@ -1,4 +1,4 @@
-package com.clip.challenge.model;
+package com.clip.challenge.dto;
 
 import java.sql.Timestamp;
 
@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "disbursement")
-public class Disbursement {
+public class DisbursementDTO {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
@@ -28,8 +28,10 @@ public class Disbursement {
 	
 	@Column(name = "date")
 	private Timestamp date;
+	
+	public DisbursementDTO() {}
 
-	public Disbursement(String clip_user, Double totalamount) {
+	public DisbursementDTO(String clip_user, Double totalamount) {
 		this.clipUser=clip_user;
 		this.totalamount=totalamount; 
 		this.date=new Timestamp(System.currentTimeMillis());

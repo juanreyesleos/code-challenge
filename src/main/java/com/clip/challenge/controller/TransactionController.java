@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.clip.challenge.model.Transaction;
+import com.clip.challenge.dto.TransactionDTO;
 import com.clip.challenge.service.TransactionService;
 
 import ch.qos.logback.classic.Logger;
@@ -27,20 +27,20 @@ public class TransactionController {
 	TransactionService transactionServices;
 	
 	@PostMapping("/transaction")
-	public int saveTransaction(@RequestBody Transaction transaction) {
+	public int saveTransaction(@RequestBody TransactionDTO transaction) {
 		transaction.setDate(new Timestamp(System.currentTimeMillis()));
 		return transactionServices.save(transaction);		
 	}
 	
 	@GetMapping("/transaction/{clipUser}")
-	public List<Transaction> getTransactionByClipUser(@PathVariable("clipUser") String clipUser) {
+	public List<TransactionDTO> getTransactionByClipUser(@PathVariable("clipUser") String clipUser) {
 		return transactionServices.getTransactionById(clipUser);
 	}
 
 	
 	@GetMapping("/transaction")
-	public List<Transaction> getAllTransaction() {
-		List<Transaction> transactions = new ArrayList<Transaction>();
+	public List<TransactionDTO> getAllTransaction() {
+		List<TransactionDTO> transactions = new ArrayList<TransactionDTO>();
 		transactions = transactionServices.getAllTransactions();
 		return transactions;
 	}
