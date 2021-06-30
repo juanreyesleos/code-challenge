@@ -24,9 +24,9 @@ public class TransactionService {
 	        return  transactionRepository.findByClipUserOrderByClipUser(clipUser);
 	    }
 
-	    public int save(TransactionDTO transaction) {
+	    public TransactionDTO save(TransactionDTO transaction) {
 	    	transactionRepository.save(transaction);
-	    	return transaction.getId();
+	    	return transaction;
 	    }
 
 

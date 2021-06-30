@@ -16,13 +16,13 @@ import com.clip.challenge.dto.TransactionDTO;
 @Repository
 public interface TransactionRepository extends JpaRepository<TransactionDTO, Integer> {
 	
-	@Query( value ="SELECT * FROM TRANSACTION   WHERE PAID = FALSE AND CLIP_USER= :clipUser ORDER BY CLIP_USER,ID ", nativeQuery =true)
+	@Query( value ="SELECT * FROM TRANSACTION   WHERE PAID = FAL AND CLIP_USER= :clipUser ORDER BY CLIP_USER,ID ", nativeQuery =true)
 	List<TransactionDTO> findByClipUserOrderByClipUser(@Param("clipUser") String clipUser);
 	
 	@Query( value ="SELECT * FROM TRANSACTION   WHERE PAID = FALSE ", nativeQuery =true)
 	List<TransactionDTO> findTransactionNoPaid();
 	
-	@Query(value = "SELECT sum (amount) AS total ,clip_user FROM TRANSACTION group by clip_user", nativeQuery = true)
+	@Query(value = "SELECT sum (amount) AS total ,clip_user FROM TRANSACTION group by CLIP_USER,ID", nativeQuery = true)
     List<Map<String, Object>> sumAmountByClipUser();
 	
 

@@ -21,5 +21,9 @@ public class DisbursementController {
 		return 1;
 	}
 	
-
+	@GetMapping("disbursement")
+	public List<String> findByClipUserOrderByClipUser(){
+		return  disbursementService.getAllDisbursement();
+	} 
+	
 }

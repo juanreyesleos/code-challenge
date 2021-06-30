@@ -12,6 +12,10 @@ import javax.persistence.Id;
 
 import javax.persistence.Table;
 
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "disbursement")
 public class DisbursementDTO {
@@ -27,9 +31,10 @@ public class DisbursementDTO {
 	private String clipUser;
 	
 	@Column(name = "date")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yy")
 	private Timestamp date;
 	
-	public DisbursementDTO() {}
+	public DisbursementDTO() {	}
 
 	public DisbursementDTO(String clip_user, Double totalamount) {
 		this.clipUser=clip_user;
@@ -61,8 +66,17 @@ public class DisbursementDTO {
 		this.clipUser = clipUser;
 	}
 	
+	public Timestamp getDate() {
+		return date;
+	}
 	
-	
-	
+	public void setDate(Timestamp date) {
+		this.date = date;
+	}
 
+	@Override
+	public String toString() {
+		return "DisbursementDTO [id=" + id + ", totalamount=" + totalamount + ", clipUser=" + clipUser + ", date="
+				+ date + "]";
+	}
 }

@@ -27,7 +27,7 @@ public class TransactionController {
 	TransactionService transactionServices;
 	
 	@PostMapping("/transaction")
-	public int saveTransaction(@RequestBody TransactionDTO transaction) {
+	public TransactionDTO saveTransaction(@RequestBody TransactionDTO transaction) {
 		transaction.setDate(new Timestamp(System.currentTimeMillis()));
 		return transactionServices.save(transaction);		
 	}
@@ -36,7 +36,6 @@ public class TransactionController {
 	public List<TransactionDTO> getTransactionByClipUser(@PathVariable("clipUser") String clipUser) {
 		return transactionServices.getTransactionById(clipUser);
 	}
-
 	
 	@GetMapping("/transaction")
 	public List<TransactionDTO> getAllTransaction() {
@@ -44,8 +43,6 @@ public class TransactionController {
 		transactions = transactionServices.getAllTransactions();
 		return transactions;
 	}
-
-	
 
 
 

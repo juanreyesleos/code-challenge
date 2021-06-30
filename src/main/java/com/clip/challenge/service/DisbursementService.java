@@ -1,9 +1,13 @@
 package com.clip.challenge.service;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +58,29 @@ public class DisbursementService {
 			              .collect(Collectors.toList());
 		return ids;		
 	}
+
+	public List<String> getAllDisbursement() {
+		List<DisbursementDTO> findAllDisbursementDTOOrderByClipUserAndId = disbursementRepository.findAllDisbursementDTOOrderByClipUserAndId();
+		List<String> disbursements =new  ArrayList<>();
+		//int count=1;
+		 AtomicInteger counter = new AtomicInteger(0);
+		findAllDisbursementDTOOrderByClipUserAndId.forEach(d ->{
+			System.out.println(d.toString());
+			disbursements.add( new String ("disbursement "+ counter.incrementAndGet()+": " + d.getTotalamount()+" pesos - "+d.getClipUser()+" - date: "+ formatDateToDdMmYy(d.getDate())   ));
+			//count++;			
+		});			
+	    return disbursements;
+	}
+	
+	public String formatDateToDdMmYy(Timestamp timestamp) {
+		String pattern = "dd/MM/yy";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		String dateString = simpleDateFormat.format(timestamp);
+		return dateString;
+		
+	}
+	
+	
+	
 
 }
