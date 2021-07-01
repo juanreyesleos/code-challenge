@@ -1,6 +1,5 @@
 package com.clip.challenge.service;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class DisbursementService {
 	DisbursementRepository disbursementRepository;
 
 	@Transactional
-	public void makeDisbursement() {
+	public List<DisbursementDTO> makeDisbursement() {		
 		List<DisbursementDTO> disbursements= new ArrayList<DisbursementDTO>();
 		Map<DisbursementDTO,List<TransactionDTO>> disbursementAndTransaction = new HashMap<>();
 		List<TransactionDTO> transactions = transactionRepository.findTransactionNoPaid();		
@@ -43,12 +42,13 @@ public class DisbursementService {
 							t -> t.getClipUser().equals(k))
 					.collect(Collectors.toList());
 
-			DisbursementDTO disbursement = new DisbursementDTO(k, v);
-			disbursements.add(disbursement);
+			DisbursementDTO disbursement = new DisbursementDTO(k, v);			
 			disbursementAndTransaction.put(disbursement, filterByUser);
 			disbursementRepository.save(disbursement);
+			disbursements.add(disbursement);
 			transactionRepository.updatePaidAndId(Boolean.TRUE, getListIds(filterByUser),disbursement.getId());			
 		});		
+		return disbursements;
 	}
 	
 	public List<Integer> getListIds(List<TransactionDTO> transactions) {
@@ -62,12 +62,9 @@ public class DisbursementService {
 	public List<String> getAllDisbursement() {
 		List<DisbursementDTO> findAllDisbursementDTOOrderByClipUserAndId = disbursementRepository.findAllDisbursementDTOOrderByClipUserAndId();
 		List<String> disbursements =new  ArrayList<>();
-		//int count=1;
 		 AtomicInteger counter = new AtomicInteger(0);
 		findAllDisbursementDTOOrderByClipUserAndId.forEach(d ->{
-			System.out.println(d.toString());
 			disbursements.add( new String ("disbursement "+ counter.incrementAndGet()+": " + d.getTotalamount()+" pesos - "+d.getClipUser()+" - date: "+ formatDateToDdMmYy(d.getDate())   ));
-			//count++;			
 		});			
 	    return disbursements;
 	}

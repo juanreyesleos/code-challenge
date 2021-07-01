@@ -2,19 +2,14 @@ package com.clip.challenge.dto;
 
 import java.sql.Timestamp;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.Table;
 
-import org.springframework.web.bind.annotation.GetMapping;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "disbursement")
@@ -31,7 +26,6 @@ public class DisbursementDTO {
 	private String clipUser;
 	
 	@Column(name = "date")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yy")
 	private Timestamp date;
 	
 	public DisbursementDTO() {	}

@@ -16,9 +16,8 @@ public class DisbursementController {
 	DisbursementService disbursementService;
 	
 	@PostMapping("disbursement")
-	public int saveDisbursement (DisbursementController disbursement) {
-		disbursementService.makeDisbursement();
-		return 1;
+	public List<DisbursementDTO> saveDisbursement (DisbursementController disbursement) {
+		return disbursementService.makeDisbursement();
 	}
 	
 	@GetMapping("disbursement")
