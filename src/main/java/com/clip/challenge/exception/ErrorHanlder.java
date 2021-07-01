@@ -26,7 +26,7 @@ public class ErrorHanlder {
 
     
     @ExceptionHandler({NoHandlerFoundException.class})
-	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	@ResponseBody
 	public CommonException notFoundException(Exception ex) {
 		logger.error(ex.getMessage());

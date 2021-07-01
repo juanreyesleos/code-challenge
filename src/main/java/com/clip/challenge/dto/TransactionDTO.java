@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "transaction")
 public class TransactionDTO {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@Column(name = "amount")
