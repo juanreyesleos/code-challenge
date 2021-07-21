@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.clip.challenge.dto.DisbursementDTO;
-import com.clip.challenge.service.DisbursementService;
+import com.clip.challenge.service.impl.DisbursementServiceImpl;
 
 @RestController
 public class DisbursementController {
 	@Autowired
-	DisbursementService disbursementService;
+	DisbursementServiceImpl disbursementService;
 	
 	@PostMapping("disbursement")
-	public List<DisbursementDTO> saveDisbursement (DisbursementController disbursement) {
+	public List<DisbursementDTO> saveDisbursement () {
 		return disbursementService.makeDisbursement();
 	}
 	
