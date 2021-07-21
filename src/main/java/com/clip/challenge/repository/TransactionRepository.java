@@ -8,18 +8,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.clip.challenge.dto.TransactionDTO;
+import com.clip.challenge.entity.TransactionEntity;
 
 @Repository
-public interface TransactionRepository extends JpaRepository<TransactionDTO, Integer> {
+public interface TransactionRepository extends JpaRepository<TransactionEntity, Integer> {
+		
+	List<TransactionEntity> findByClipUserOrderByClipUserAscIdAsc(@Param("clipUser") String clipUser);
+		
+	List<TransactionEntity> findByPaid(@Param("paid") Boolean paid);
 	
-	@Query( value ="SELECT * FROM TRANSACTION   WHERE PAID = FALSE AND CLIP_USER= :clipUser ORDER BY CLIP_USER,ID ", nativeQuery =true)
-	List<TransactionDTO> findByClipUserOrderByClipUser(@Param("clipUser") String clipUser);
-	
-	@Query( value ="SELECT * FROM TRANSACTION   WHERE PAID = FALSE ", nativeQuery =true)
-	List<TransactionDTO> findTransactionNoPaid();
-	
-	@Query(value= "UPDATE TRANSACTION  "
+	@Query(value= "UPDATE TRANSACTIONS  "
 			+ "SET PAID=:paid , "
 			+ " ID_DISBURSEMENT = :iddisbursement"
 			+ " WHERE ID in :ids", nativeQuery = true)

@@ -6,13 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.clip.challenge.dto.DisbursementDTO;
+import com.clip.challenge.entity.DisbursementEntity;
 
 
 @Repository
-public interface DisbursementRepository  extends JpaRepository<DisbursementDTO, Integer>{
+public interface DisbursementRepository  extends JpaRepository<DisbursementEntity, Integer>{
 	
-	@Query(value = "SELECT * FROM DISBURSEMENT  ORDER BY CLIP_USER,ID",nativeQuery = true)
-	List<DisbursementDTO> findAllDisbursementDTOOrderByClipUserAndId();
+	@Query(value = "SELECT * FROM DISBURSEMENTS  ORDER BY CLIP_USER,ID",nativeQuery = true)
+	List<DisbursementEntity> findAllDisbursementDTOOrderByClipUserAndId();
 	
 }
