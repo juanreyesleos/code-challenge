@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @ComponentScan("com.clip.challenge")
 @EnableJpaRepositories("com.clip.challenge.repository")
-@EntityScan("com.clip.challenge.model")
+@EntityScan("com.clip.challenge.entity")
 public class SpringConfiguration {
 
 	public static void main(String[] args) {
